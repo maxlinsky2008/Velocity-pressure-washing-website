@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Velocity Pressure Washing — Cleaner Spaces. Stronger Impact.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0F2044;
+      --navy-mid: #162D5F;
+      --navy-light: #1E3F80;
+      --green: #3EC94F;
+      --green-dark: #2BA33B;
+      --blue-accent: #1E74D4;
+      --water: #4ABDE8;
+      --white: #FFFFFF;
+      --off-white: #F4F8FF;
+      --text-light: #C8D8F0;
+      --gray: #8899B4;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
+
+    /* Noise */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1.25rem 2rem;
+      transition: background 0.4s, backdrop-filter 0.4s, box-shadow 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(15,32,68,0.93);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 4px 40px rgba(0,0,0,0.3);
+    }
+    .nav-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { background: white; border-radius: 6px; display: inline-flex; align-items: center; overflow: hidden; }
+    .nav-logo img { width: 200px; height: 52px; object-fit: cover; object-position: center; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600; font-size: 0.875rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-light); text-decoration: none;
+      transition: color 0.2s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 2px;
+      background: var(--green); transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s cubic-bezier(.25,.46,.45,.94);
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      background: var(--green) !important; color: var(--navy) !important;
+      padding: 0.55rem 1.4rem !important; border-radius: 4px; font-weight: 700 !important;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover {
+      background: #4ce860 !important; color: var(--navy) !important;
+      box-shadow: 0 4px 18px rgba(62,201,79,0.4);
+    }
+
+    /* HERO */
+    #hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; overflow: hidden;
+      background: var(--navy);
+    }
+    #hero-canvas { position: absolute; inset: 0; z-index: 0; }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 1;
+      background:
+        radial-gradient(ellipse 55% 80% at 75% 50%, rgba(30,116,212,0.13) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 15% 85%, rgba(62,201,79,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 70% 50% at 50% -10%, rgba(74,189,232,0.1) 0%, transparent 60%);
+    }
+    .hero-img-side {
+      position: absolute; right: 0; top: 0; bottom: 0; width: 50%; z-index: 2;
+    }
+    .hero-img-side img { width: 100%; height: 100%; object-fit: cover; opacity: 0.18; mix-blend-mode: luminosity; }
+    .hero-img-side::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to right, var(--navy) 25%, transparent 75%);
+    }
+    .hero-content {
+      position: relative; z-index: 10;
+      max-width: 1280px; margin: 0 auto; padding: 130px 2rem 80px; width: 100%;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: rgba(62,201,79,0.1); border: 1px solid rgba(62,201,79,0.3);
+      color: var(--green); padding: 0.4rem 1rem; border-radius: 100px;
+      margin-bottom: 2rem; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      opacity: 0; animation: fadeUp 0.7s cubic-bezier(.25,.46,.45,.94) 0.2s forwards;
+    }
+    .hero-badge-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+    .hero-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(4.5rem, 9.5vw, 10rem);
+      line-height: 0.9; letter-spacing: 0.015em; color: var(--white); max-width: 680px;
+      opacity: 0; animation: fadeUp 0.8s cubic-bezier(.25,.46,.45,.94) 0.4s forwards;
+    }
+    .hero-title .green { color: var(--green); }
+    .hero-sub {
+      margin-top: 1.5rem; font-size: 1.1rem; color: var(--text-light);
+      max-width: 460px; line-height: 1.75;
+      opacity: 0; animation: fadeUp 0.8s cubic-bezier(.25,.46,.45,.94) 0.6s forwards;
+    }
+    .hero-actions {
+      margin-top: 2.5rem; display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.8s cubic-bezier(.25,.46,.45,.94) 0.8s forwards;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--green); color: var(--navy);
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.95rem 2rem; border-radius: 4px; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(62,201,79,0.3);
+      transition: background 0.2s, transform 0.2s cubic-bezier(.25,.46,.45,.94), box-shadow 0.2s;
+    }
+    .btn-primary:hover { background: #4ce860; transform: translateY(-3px); box-shadow: 0 8px 32px rgba(62,201,79,0.45); }
+    .btn-primary:active { transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      color: var(--white); font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600; font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; padding: 0.95rem 1.5rem;
+      border: 1px solid rgba(255,255,255,0.2); border-radius: 4px;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.06); transform: translateY(-2px); }
+    .hero-stats {
+      margin-top: 4rem; display: flex; gap: 3rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.8s cubic-bezier(.25,.46,.45,.94) 1s forwards;
+    }
+    .stat-num {
+      font-family: 'Bebas Neue', cursive; font-size: 3rem; line-height: 1; color: var(--white);
+    }
+    .stat-num span { color: var(--green); }
+    .stat-label {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem;
+      font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gray); margin-top: 0.2rem;
+    }
+
+    /* TRUST BAR */
+    #trust {
+      background: var(--navy-mid);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 1.25rem 2rem;
+    }
+    .trust-row {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-around; gap: 1.5rem; flex-wrap: wrap;
+    }
+    .trust-item { display: flex; align-items: center; gap: 0.75rem; }
+    .trust-icon {
+      width: 34px; height: 34px; background: rgba(62,201,79,0.12); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; color: var(--green); flex-shrink: 0;
+    }
+    .trust-label {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light);
+    }
+
+    /* SECTIONS */
+    .section { padding: 6rem 2rem; }
+    .wrap { max-width: 1280px; margin: 0 auto; }
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      color: var(--green); font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      margin-bottom: 0.875rem;
+    }
+    .section-eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--green); border-radius: 1px; }
+    .section-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 0.93;
+      letter-spacing: 0.02em; color: var(--white); max-width: 580px;
+    }
+    .section-sub { margin-top: 1rem; color: var(--text-light); line-height: 1.75; max-width: 480px; }
+
+    /* SERVICES */
+    #services { background: var(--navy); }
+    .services-grid {
+      margin-top: 3.5rem;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.5px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06);
+    }
+    .svc {
+      background: var(--navy-mid); padding: 2.25rem; position: relative; overflow: hidden;
+      transition: background 0.3s;
+    }
+    .svc::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(62,201,79,0.06) 0%, transparent 60%);
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .svc::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(to right, var(--green), var(--blue-accent));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s cubic-bezier(.25,.46,.45,.94);
+    }
+    .svc:hover { background: #1a3468; }
+    .svc:hover::before { opacity: 1; }
+    .svc:hover::after { transform: scaleX(1); }
+    .svc-icon {
+      width: 52px; height: 52px; background: rgba(62,201,79,0.1); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; color: var(--green);
+      margin-bottom: 1.25rem; transition: background 0.3s, transform 0.3s;
+    }
+    .svc:hover .svc-icon { background: rgba(62,201,79,0.2); transform: scale(1.06); }
+    .svc-name {
+      font-family: 'Bebas Neue', cursive; font-size: 1.55rem;
+      letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.6rem;
+    }
+    .svc-desc { color: var(--text-light); font-size: 0.875rem; line-height: 1.65; }
+    .svc-link {
+      margin-top: 1.25rem; display: flex; align-items: center; gap: 0.4rem;
+      color: var(--green); font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      opacity: 0; transform: translateX(-6px); transition: opacity 0.3s, transform 0.3s;
+    }
+    .svc:hover .svc-link { opacity: 1; transform: translateX(0); }
+
+    /* WHY */
+    #why {
+      background: var(--off-white);
+      clip-path: polygon(0 60px, 100% 0, 100% calc(100% - 60px), 0 100%);
+      padding: calc(6rem + 70px) 2rem;
+      margin: -60px 0;
+    }
+    #why .section-eyebrow { color: var(--navy-light); }
+    #why .section-eyebrow::before { background: var(--navy-light); }
+    #why .section-title { color: var(--navy); }
+    #why .section-sub { color: #4A5E7A; }
+    .why-grid {
+      margin-top: 3.5rem;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.5rem;
+    }
+    .why-card {
+      background: white; border-radius: 12px; padding: 1.75rem;
+      box-shadow: 0 4px 24px rgba(15,32,68,0.08), 0 1px 4px rgba(15,32,68,0.04);
+      position: relative; overflow: hidden;
+      transition: transform 0.3s cubic-bezier(.25,.46,.45,.94), box-shadow 0.3s;
+    }
+    .why-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(to right, var(--green), var(--blue-accent));
+    }
+    .why-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(15,32,68,0.14); }
+    .why-num {
+      font-family: 'Bebas Neue', cursive; font-size: 3.5rem; line-height: 1;
+      color: rgba(15,32,68,0.07); position: absolute; top: 0.75rem; right: 1rem;
+    }
+    .why-icon {
+      width: 46px; height: 46px; background: rgba(15,32,68,0.07); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; color: var(--navy-light);
+      margin-bottom: 1rem;
+    }
+    .why-title {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 1rem;
+      font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--navy); margin-bottom: 0.5rem;
+    }
+    .why-text { font-size: 0.85rem; color: #4A5E7A; line-height: 1.65; }
+
+    /* PROCESS */
+    #process { background: var(--navy); padding: 7rem 2rem; }
+    .process-steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0; margin-top: 4rem; position: relative;
+    }
+    .process-steps::before {
+      content: ''; position: absolute; top: 31px; left: 12%; right: 12%; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(62,201,79,0.4), transparent);
+    }
+    .step { text-align: center; padding: 1.5rem 1.25rem; }
+    .step-num {
+      width: 62px; height: 62px; border-radius: 50%;
+      border: 2px solid rgba(62,201,79,0.35); background: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-family: 'Bebas Neue', cursive; font-size: 1.5rem; color: var(--green);
+      position: relative; z-index: 2;
+      transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+    }
+    .step:hover .step-num {
+      border-color: var(--green); background: rgba(62,201,79,0.12);
+      box-shadow: 0 0 24px rgba(62,201,79,0.28);
+    }
+    .step-title {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--white); margin-bottom: 0.5rem;
+    }
+    .step-text { font-size: 0.83rem; color: var(--gray); line-height: 1.6; }
+
+    /* TESTIMONIALS */
+    #testimonials {
+      background: var(--navy-mid); padding: 6rem 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .testi-grid {
+      margin-top: 3.5rem;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.25rem;
+    }
+    .testi {
+      background: var(--navy); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px;
+      padding: 1.75rem; position: relative; overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .testi:hover { border-color: rgba(62,201,79,0.2); transform: translateY(-4px); }
+    .testi-quote {
+      position: absolute; top: 1rem; right: 1.25rem;
+      font-family: 'Bebas Neue', cursive; font-size: 5rem; line-height: 1;
+      color: rgba(62,201,79,0.05); pointer-events: none;
+    }
+    .stars { display: flex; gap: 2px; margin-bottom: 1rem; }
+    .star { color: #FFB800; font-size: 0.9rem; }
+    .testi-text { font-size: 0.875rem; line-height: 1.7; color: var(--text-light); font-style: italic; margin-bottom: 1.25rem; }
+    .testi-author { display: flex; align-items: center; gap: 0.75rem; }
+    .avatar {
+      width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--green), var(--blue-accent));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', cursive; font-size: 1rem; color: var(--navy);
+    }
+    .author-name {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem;
+      font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white);
+    }
+    .author-loc { font-size: 0.72rem; color: var(--gray); }
+
+    /* CTA */
+    #cta { padding: 8rem 2rem; background: var(--navy); position: relative; overflow: hidden; text-align: center; }
+    .cta-glow {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 100% at 50% 60%, rgba(62,201,79,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 80% 10%, rgba(30,116,212,0.08) 0%, transparent 50%);
+    }
+    .cta-inner { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; }
+    .cta-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(3rem, 6.5vw, 7rem); line-height: 0.92;
+      letter-spacing: 0.02em; color: var(--white); margin-bottom: 1.25rem;
+    }
+    .cta-title .g { color: var(--green); }
+    .cta-sub { font-size: 1rem; color: var(--text-light); line-height: 1.75; max-width: 460px; margin: 0 auto 2.25rem; }
+    .cta-pills { display: flex; align-items: center; justify-content: center; gap: 2rem; margin-top: 1.75rem; flex-wrap: wrap; }
+    .pill { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--gray); font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .pill svg { color: var(--green); }
+
+    /* FOOTER */
+    footer { background: #081428; border-top: 1px solid rgba(255,255,255,0.06); padding: 2.5rem 2rem; }
+    .footer-row { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-logo { background: white; border-radius: 6px; display: inline-flex; align-items: center; overflow: hidden; }
+    .footer-logo img { width: 170px; height: 44px; object-fit: cover; object-position: center; display: block; }
+    .footer-copy { font-size: 0.78rem; color: var(--gray); }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--white); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.75); } }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(.25,.46,.45,.94), transform 0.7s cubic-bezier(.25,.46,.45,.94); }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.3s; }
+    .d4 { transition-delay: 0.4s; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .process-steps::before { display: none; }
+      #why { clip-path: polygon(0 30px, 100% 0, 100% calc(100% - 30px), 0 100%); padding: calc(5rem + 40px) 2rem; margin: -30px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo"><img src="brand_assets/Velocity Logo.png" alt="Velocity Pressure Washing" /></a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#cta" class="nav-cta">Free Quote</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-bg"></div>
+  <div class="hero-img-side">
+    <img src="https://placehold.co/900x1000/081830/0f2044?text=." alt="" />
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="hero-badge-dot"></span>Licensed &amp; Insured · Serving Your Area</div>
+    <h1 class="hero-title">Your Property,<br><span class="green">Spotless.</span></h1>
+    <p class="hero-sub">Professional pressure washing that strips grime, mold, and years of buildup — leaving every surface looking brand new.</p>
+    <div class="hero-actions">
+      <a href="#cta" class="btn-primary">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        Get a Free Quote
+      </a>
+      <a href="#services" class="btn-outline">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+        Our Services
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">500<span>+</span></div><div class="stat-label">Jobs Completed</div></div>
+      <div><div class="stat-num">8<span>+</span></div><div class="stat-label">Years Experience</div></div>
+      <div><div class="stat-num">100<span>%</span></div><div class="stat-label">Satisfaction Rate</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div id="trust">
+  <div class="trust-row">
+    <div class="trust-item">
+      <div class="trust-icon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+      <span class="trust-label">Fully Licensed &amp; Insured</span>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+      <span class="trust-label">Same-Day Availability</span>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg></div>
+      <span class="trust-label">Satisfaction Guaranteed</span>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+      <span class="trust-label">Eco-Friendly Solutions</span>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg></div>
+      <span class="trust-label">5-Star Rated</span>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services" class="section">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="section-eyebrow">What We Do</div>
+      <h2 class="section-title">Professional Cleaning Services</h2>
+      <p class="section-sub">From driveways to rooftops, every surface handled with precision.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc reveal d1">
+        <div class="svc-icon"><svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></div>
+        <div class="svc-name">House Washing</div>
+        <p class="svc-desc">Blast away mold, mildew, algae, and dirt from siding, brick, or stucco — restoring curb appeal without damage.</p>
+        <div class="svc-link"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg> Learn More</div>
+      </div>
+      <div class="svc reveal d2">
+        <div class="svc-icon"><svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg></div>
+        <div class="svc-name">Driveway Cleaning</div>
+        <p class="svc-desc">Eliminate oil stains, tire marks, and embedded grime from concrete, asphalt, and pavers with high-pressure hot water.</p>
+        <div class="svc-link"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg> Learn More</div>
+      </div>
+      <div class="svc reveal d3">
+        <div class="svc-icon"><svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg></div>
+        <div class="svc-name">Deck &amp; Patio</div>
+        <p class="svc-desc">Revive weathered wood, composite, or concrete spaces. Remove algae and stains, prepping perfectly for seal or stain.</p>
+        <div class="svc-link"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg> Learn More</div>
+      </div>
+      <div class="svc reveal d1">
+        <div class="svc-icon"><svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></div>
+        <div class="svc-name">Commercial Washing</div>
+        <p class="svc-desc">Keep your business exterior spotless and professional. We work after hours to minimize any disruption to operations.</p>
+        <div class="svc-link"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg> Learn More</div>
+      </div>
+      <div class="svc reveal d2">
+        <div class="svc-icon"><svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z"/></svg></div>
+        <div class="svc-name">Roof Soft Wash</div>
+        <p class="svc-desc">Safe low-pressure cleaning for delicate roof surfaces. Dissolves black streaks, moss, and lichen without voiding your warranty.</p>
+        <div class="svc-link"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg> Learn More</div>
+      </div>
+      <div class="svc reveal d3">
+        <div class="svc-icon"><svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg></div>
+        <div class="svc-name">Fence &amp; Sidewalk</div>
+        <p class="svc-desc">Restore vinyl, wood, or metal fencing and bring walkways back to life. Ideal prep before any painting or staining project.</p>
+        <div class="svc-link"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg> Learn More</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="section-eyebrow">Why Velocity</div>
+      <h2 class="section-title">The Standard Others Aim For</h2>
+      <p class="section-sub">We don't just clean surfaces — we protect your investment and make your property shine.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal d1">
+        <div class="why-num">01</div>
+        <div class="why-icon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+        <div class="why-title">Certified &amp; Insured</div>
+        <p class="why-text">Fully licensed with $1M+ liability coverage. Your property is fully protected from the moment we arrive.</p>
+      </div>
+      <div class="why-card reveal d2">
+        <div class="why-num">02</div>
+        <div class="why-icon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+        <div class="why-title">Pro Equipment</div>
+        <p class="why-text">Industrial-grade machines with variable pressure settings. The right PSI for every surface — no damage, ever.</p>
+      </div>
+      <div class="why-card reveal d3">
+        <div class="why-num">03</div>
+        <div class="why-icon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <div class="why-title">On Time, Every Time</div>
+        <p class="why-text">We show up when we say we will. Tight scheduling, clear communication, zero no-shows.</p>
+      </div>
+      <div class="why-card reveal d4">
+        <div class="why-num">04</div>
+        <div class="why-icon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <div class="why-title">Eco-Friendly</div>
+        <p class="why-text">Biodegradable detergents safe for your family, pets, and landscaping. Clean property, clean conscience.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="section" style="padding-top:8rem;">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-eyebrow" style="justify-content:center;">How It Works</div>
+      <h2 class="section-title" style="margin:0 auto;text-align:center;">Simple. Fast. Spotless.</h2>
+      <p class="section-sub" style="margin:1rem auto 0;text-align:center;">From your first call to a gleaming property in four steps.</p>
+    </div>
+    <div class="process-steps">
+      <div class="step reveal d1">
+        <div class="step-num">01</div>
+        <div class="step-title">Get a Free Quote</div>
+        <p class="step-text">Tell us your address and what needs cleaning. We'll give you a transparent price with zero hidden fees.</p>
+      </div>
+      <div class="step reveal d2">
+        <div class="step-num">02</div>
+        <div class="step-title">Schedule a Date</div>
+        <p class="step-text">Pick a time that works. We offer flexible morning and afternoon slots, including weekends.</p>
+      </div>
+      <div class="step reveal d3">
+        <div class="step-num">03</div>
+        <div class="step-title">We Do the Work</div>
+        <p class="step-text">Our team arrives fully equipped, protects your landscaping, and works methodically top to bottom.</p>
+      </div>
+      <div class="step reveal d4">
+        <div class="step-num">04</div>
+        <div class="step-title">Enjoy the Results</div>
+        <p class="step-text">Walk through with us. Not satisfied? We re-clean it on the spot, no questions asked.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-eyebrow" style="justify-content:center;">Real Reviews</div>
+      <h2 class="section-title" style="margin:0 auto;text-align:center;">What Our Clients Say</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi reveal d1">
+        <div class="testi-quote">"</div>
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="testi-text">"My driveway had 10 years of stains and they made it look brand new. I couldn't believe the difference. Fast, professional, and cleaned up after themselves."</p>
+        <div class="testi-author"><div class="avatar">MR</div><div><div class="author-name">Mike R.</div><div class="author-loc">Residential — Driveway</div></div></div>
+      </div>
+      <div class="testi reveal d2">
+        <div class="testi-quote">"</div>
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="testi-text">"Used them twice for our restaurant exterior. Every time they show up early, get it done right. The building looks incredible — worth every penny for the first impression."</p>
+        <div class="testi-author"><div class="avatar">SL</div><div><div class="author-name">Sarah L.</div><div class="author-loc">Commercial — Retail</div></div></div>
+      </div>
+      <div class="testi reveal d3">
+        <div class="testi-quote">"</div>
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="testi-text">"Had black streaks all over my roof for years. Velocity did a soft wash and they're completely gone — didn't damage a single shingle. Highly recommend."</p>
+        <div class="testi-author"><div class="avatar">TK</div><div><div class="author-name">Tom K.</div><div class="author-loc">Residential — Roof Wash</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-glow"></div>
+  <div class="cta-inner">
+    <div class="reveal">
+      <div class="section-eyebrow" style="justify-content:center;color:var(--green);">Ready to Start?</div>
+      <h2 class="cta-title">Get Your <span class="g">Free</span><br>Quote Today</h2>
+      <p class="cta-sub">No obligation. No pressure (except the kind we use on your driveway). Just a fast, fair price for a spotless result.</p>
+      <a href="tel:+14044355224" class="btn-primary" style="font-size:1.05rem;padding:1.1rem 2.5rem;">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        Call Now: (404) 435-5224
+      </a>
+      <div class="cta-pills">
+        <div class="pill"><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>maxelanlinsky@gmail.com</div>
+        <div class="pill"><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Serving Your Local Area</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-row">
+    <div class="footer-logo"><img src="brand_assets/Velocity Logo.png" alt="Velocity Pressure Washing" /></div>
+    <p class="footer-copy">© 2026 Velocity Pressure Washing. All rights reserved.</p>
+    <ul class="footer-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#why">About</a></li>
+      <li><a href="#cta">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // Scrolled nav
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+
+  // Canvas rain particles
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  function resize() { canvas.width = window.innerWidth; canvas.height = document.getElementById('hero').offsetHeight; }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  const particles = Array.from({ length: 130 }, () => {
+    const p = {};
+    const reset = () => {
+      p.x = Math.random() * canvas.width;
+      p.y = Math.random() * canvas.height;
+      p.vx = (Math.random() - 0.5) * 0.35;
+      p.vy = Math.random() * 0.9 + 0.25;
+      p.r = Math.random() * 2 + 0.4;
+      p.a = Math.random() * 0.35 + 0.05;
+      p.c = Math.random() > 0.55 ? '74,189,232' : '62,201,79';
+    };
+    reset();
+    p.reset = reset;
+    return p;
+  });
+
+  (function loop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.y > canvas.height + 8) p.reset();
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.c},${p.a})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(loop);
+  })();
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
